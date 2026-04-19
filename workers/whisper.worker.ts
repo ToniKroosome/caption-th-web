@@ -1,4 +1,4 @@
-import { pipeline, AutomaticSpeechRecognitionPipeline } from "@xenova/transformers";
+import { pipeline, AutomaticSpeechRecognitionPipeline } from "@huggingface/transformers";
 
 let asr: AutomaticSpeechRecognitionPipeline | null = null;
 let loadedModel = "";
