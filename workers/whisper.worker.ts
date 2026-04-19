@@ -8,20 +8,37 @@ self.onmessage = async (e: MessageEvent) => {
 
   try {
     if (!asr || loadedModel !== model) {
+      // Track total across all files being downloaded
+      const fileTotals: Record<string, number> = {};
+      const fileLoaded: Record<string, number> = {};
+
       asr = await pipeline("automatic-speech-recognition", model, {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         progress_callback: (p: any) => {
-          if (p.status === "downloading" || p.status === "loading") {
+          if (p.status === "downloading" || p.status === "progress") {
+            const file = p.file ?? "model";
+            if (p.total) fileTotals[file] = p.total;
+            if (p.loaded !== undefined) fileLoaded[file] = p.loaded;
+
+            const totalBytes = Object.values(fileTotals).reduce((a, b) => a + b, 0);
+            const loadedBytes = Object.values(fileLoaded).reduce((a, b) => a + b, 0);
+            const pct = totalBytes > 0 ? (loadedBytes / totalBytes) * 100 : (p.progress ?? 0) * 100;
+
             self.postMessage({
               type: "download",
               data: {
-                loaded: p.loaded ?? 0,
-                total: p.total ?? 0,
-                progress: p.progress ?? 0,
+                loaded: loadedBytes,
+                total: totalBytes,
+                progress: pct,
                 file: p.file ?? "",
               },
             });
-          } else if (p.status === "ready") {
+          } else if (p.status === "initiate") {
+            self.postMessage({
+              type: "download",
+              data: { loaded: 0, total: 0, progress: 0, file: p.file ?? "" },
+            });
+          } else if (p.status === "done" || p.status === "ready") {
             self.postMessage({ type: "model-ready" });
           }
         },
