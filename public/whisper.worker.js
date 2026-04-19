@@ -1,4 +1,12 @@
-importScripts("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js");
+// Dynamically import transformers as an ES module (works with COEP)
+let transformersPromise = null;
+
+function loadTransformers() {
+  if (!transformersPromise) {
+    transformersPromise = import("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js");
+  }
+  return transformersPromise;
+}
 
 let asr = null;
 let loadedModel = "";
@@ -7,9 +15,11 @@ self.onmessage = async (e) => {
   const { audioBuffer, model } = e.data;
 
   try {
-    const { pipeline } = self.Transformers ?? {};
+    const mod = await loadTransformers();
+    const pipeline = mod.pipeline ?? mod.default?.pipeline;
+
     if (!pipeline) {
-      self.postMessage({ type: "error", data: "Transformers library failed to load" });
+      self.postMessage({ type: "error", data: "Could not load transformers pipeline" });
       return;
     }
 
