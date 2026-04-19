@@ -9,16 +9,28 @@ self.onmessage = async (e: MessageEvent) => {
   try {
     if (!asr || loadedModel !== model) {
       asr = await pipeline("automatic-speech-recognition", model, {
-        progress_callback: (p: { progress?: number }) => {
-          if (p.progress !== undefined) {
-            self.postMessage({ type: "progress", data: p.progress });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        progress_callback: (p: any) => {
+          if (p.status === "downloading" || p.status === "loading") {
+            self.postMessage({
+              type: "download",
+              data: {
+                loaded: p.loaded ?? 0,
+                total: p.total ?? 0,
+                progress: p.progress ?? 0,
+                file: p.file ?? "",
+              },
+            });
+          } else if (p.status === "ready") {
+            self.postMessage({ type: "model-ready" });
           }
         },
       }) as AutomaticSpeechRecognitionPipeline;
       loadedModel = model;
+    } else {
+      self.postMessage({ type: "model-ready" });
     }
 
-    // Decode audio from ArrayBuffer to Float32Array
     const audioCtx = new AudioContext({ sampleRate: 16000 });
     const decoded = await audioCtx.decodeAudioData(audioBuffer);
     const float32 = decoded.getChannelData(0);
@@ -31,7 +43,6 @@ self.onmessage = async (e: MessageEvent) => {
       stride_length_s: 5,
     });
 
-    // Normalise output shape
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const chunks: any[] = Array.isArray(result) ? result : (result as any).chunks ?? [];
     const segments = chunks.map((c) => ({
