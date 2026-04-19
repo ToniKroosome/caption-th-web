@@ -8,7 +8,7 @@ export default async function PricingPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-lg font-bold text-blue-400">CaptionTH</Link>
+        <Link href="/" className="text-lg font-bold text-blue-400">Tum-Mu-Sub-Bu</Link>
         {isSignedIn ? (
           <Link href="/tool" className="text-sm bg-blue-600 hover:bg-blue-500 px-4 py-1.5 rounded-lg">เปิดโปรแกรม</Link>
         ) : (

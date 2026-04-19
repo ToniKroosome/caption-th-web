@@ -26,7 +26,7 @@ export default function ToolPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-lg font-bold text-blue-400">CaptionTH</Link>
+        <Link href="/" className="text-lg font-bold text-blue-400">Tum-Mu-Sub-Bu</Link>
         <div className="flex items-center gap-4">
           {tier === "free" && (
             <Link href="/pricing" className="text-xs bg-yellow-500 text-black font-medium px-3 py-1 rounded-full hover:bg-yellow-400">

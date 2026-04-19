@@ -3,7 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CaptionTH — Thai Caption Generator",
+  title: "Tum-Mu-Sub-Bu — Thai Caption Generator",
   description: "Generate Thai captions from audio/video in your browser. Free with watermark, paid without.",
 };
 
