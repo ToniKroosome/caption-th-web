@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <span className="text-lg font-bold text-blue-400">CaptionTH</span>
+        <span className="text-lg font-bold text-blue-400">Tum-Mu-Sub-Bu</span>
         <div className="flex gap-3">
           <Link href="/pricing" className="text-sm text-gray-400 hover:text-white px-3 py-1">ราคา</Link>
         </div>
@@ -22,13 +22,13 @@ export default function Home() {
 
         <div className="flex gap-4 flex-wrap justify-center mb-4">
           <a
-            href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/CaptionTH-Mac.dmg"
+            href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/TumMuSubBu-Mac.dmg"
             className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl font-medium text-lg flex items-center gap-2"
           >
              ดาวน์โหลดสำหรับ Mac
           </a>
           <a
-            href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/CaptionTH-Windows.exe"
+            href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/TumMuSubBu-Win.exe"
             className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl font-medium text-lg flex items-center gap-2"
           >
              ดาวน์โหลดสำหรับ Windows
