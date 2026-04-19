@@ -1,20 +1,24 @@
-import { pipeline, AutomaticSpeechRecognitionPipeline } from "@huggingface/transformers";
+importScripts("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js");
 
-let asr: AutomaticSpeechRecognitionPipeline | null = null;
+let asr = null;
 let loadedModel = "";
 
-self.onmessage = async (e: MessageEvent) => {
+self.onmessage = async (e) => {
   const { audioBuffer, model } = e.data;
 
   try {
+    const { pipeline } = self.Transformers ?? {};
+    if (!pipeline) {
+      self.postMessage({ type: "error", data: "Transformers library failed to load" });
+      return;
+    }
+
     if (!asr || loadedModel !== model) {
-      // Track total across all files being downloaded
-      const fileTotals: Record<string, number> = {};
-      const fileLoaded: Record<string, number> = {};
+      const fileTotals = {};
+      const fileLoaded = {};
 
       asr = await pipeline("automatic-speech-recognition", model, {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        progress_callback: (p: any) => {
+        progress_callback: (p) => {
           if (p.status === "downloading" || p.status === "progress") {
             const file = p.file ?? "model";
             if (p.total) fileTotals[file] = p.total;
@@ -24,25 +28,14 @@ self.onmessage = async (e: MessageEvent) => {
             const loadedBytes = Object.values(fileLoaded).reduce((a, b) => a + b, 0);
             const pct = totalBytes > 0 ? (loadedBytes / totalBytes) * 100 : (p.progress ?? 0) * 100;
 
-            self.postMessage({
-              type: "download",
-              data: {
-                loaded: loadedBytes,
-                total: totalBytes,
-                progress: pct,
-                file: p.file ?? "",
-              },
-            });
+            self.postMessage({ type: "download", data: { loaded: loadedBytes, total: totalBytes, progress: pct, file: p.file ?? "" } });
           } else if (p.status === "initiate") {
-            self.postMessage({
-              type: "download",
-              data: { loaded: 0, total: 0, progress: 0, file: p.file ?? "" },
-            });
+            self.postMessage({ type: "download", data: { loaded: 0, total: 0, progress: 0, file: p.file ?? "" } });
           } else if (p.status === "done" || p.status === "ready") {
             self.postMessage({ type: "model-ready" });
           }
         },
-      }) as AutomaticSpeechRecognitionPipeline;
+      });
       loadedModel = model;
     } else {
       self.postMessage({ type: "model-ready" });
@@ -60,8 +53,7 @@ self.onmessage = async (e: MessageEvent) => {
       stride_length_s: 5,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const chunks: any[] = Array.isArray(result) ? result : (result as any).chunks ?? [];
+    const chunks = Array.isArray(result) ? result : (result.chunks ?? []);
     const segments = chunks.map((c) => ({
       start: c.timestamp[0] ?? 0,
       end: c.timestamp[1] ?? c.timestamp[0] + 2,

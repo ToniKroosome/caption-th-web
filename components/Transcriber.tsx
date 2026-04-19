@@ -52,7 +52,8 @@ export default function Transcriber({ onSegments }: Props) {
         workerRef.current.terminate();
         workerRef.current = null;
       }
-      workerRef.current = new Worker(new URL("../workers/whisper.worker.ts", import.meta.url), { type: "module" });
+      // Load from /public to avoid Turbopack bundling the transformers library
+      workerRef.current = new Worker("/whisper.worker.js");
       const worker = workerRef.current;
 
       worker.onmessage = (e) => {
