@@ -23,8 +23,8 @@ export default function Home() {
           <br />บนเครื่องของคุณ
         </h1>
         <p className="text-gray-300 text-lg max-w-xl mb-8">
-          ดาวน์โหลดแอปและใช้งานได้เลย — ถอดเสียงด้วย Whisper AI บนเครื่องของคุณ
-          เร็ว แม่น ไม่ต้องมีอินเทอร์เน็ต ไม่มี API Key
+          ดาวน์โหลดแอปและใช้งานได้เลย — รันบนเครื่องของคุณโดยตรง
+          เร็ว แม่น ไม่ต้องมีอินเทอร์เน็ต
         </p>
 
         <div className="flex gap-4 flex-wrap justify-center mb-4">
@@ -47,7 +47,7 @@ export default function Home() {
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl w-full text-left">
           {[
-            { icon: "⚡", title: "เร็วและแม่น", desc: "ใช้ Whisper AI รันบนเครื่องคุณโดยตรง เร็วกว่า Browser มาก" },
+            { icon: "⚡", title: "เร็วและแม่น", desc: "รันบนเครื่องคุณโดยตรง เร็วและแม่นมาก" },
             { icon: "🔒", title: "Privacy First", desc: "ไฟล์เสียงไม่ถูกส่งออกนอกเครื่องคุณเลย ปลอดภัย 100%" },
             { icon: "🎬", title: "Export พร้อม Subtitle", desc: "เบิร์น Subtitle ลงวิดีโอ หรือดาวน์โหลดไฟล์ .SRT / .TXT" },
           ].map((f) => (
