@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen text-white flex flex-col" style={{ backgroundImage: "url('/background.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }}>
       <header className="border-b border-white/10 px-6 py-3 flex items-center justify-between" style={{ background: "rgba(10,22,40,0.85)", backdropFilter: "blur(8px)" }}>
-        <Image src="/logo.jpg" alt="ทำมุซับบุ" width={52} height={52} style={{ borderRadius: 8 }} />
+        <Image src="/logo.jpg" alt="ทำมุซับบุ" width={208} height={208} style={{ borderRadius: 8 }} />
         <div className="flex gap-3">
           <Link href="/pricing" className="text-sm text-gray-400 hover:text-white px-3 py-1">ราคา</Link>
         </div>
