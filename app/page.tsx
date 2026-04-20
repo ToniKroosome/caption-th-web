@@ -4,9 +4,10 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="min-h-screen text-white flex flex-col" style={{ backgroundImage: "url('/background.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment: "fixed" }}>
-      <header className="border-b border-white/10 px-6 py-3 flex items-center justify-between" style={{ background: "rgba(10,22,40,0.85)", backdropFilter: "blur(8px)" }}>
+      <header className="border-b border-white/10 px-6 py-3 flex items-center" style={{ background: "rgba(10,22,40,0.85)", backdropFilter: "blur(8px)" }}>
+        <div className="flex-1" />
         <Image src="/logo.jpg" alt="ทำมุซับบุ" width={208} height={208} style={{ borderRadius: 8 }} />
-        <div className="flex gap-3">
+        <div className="flex-1 flex justify-end">
           <Link href="/pricing" className="text-sm text-gray-400 hover:text-white px-3 py-1">ราคา</Link>
         </div>
       </header>
