@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { track } from "@vercel/analytics";
 
 export default function Home() {
   return (
@@ -35,12 +37,14 @@ export default function Home() {
           <a
             href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/TumMuSubBu-Mac.dmg"
             className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl font-medium text-lg flex items-center gap-2"
+            onClick={() => track("download_mac")}
           >
              ดาวน์โหลดสำหรับ Mac
           </a>
           <a
             href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/TumMuSubBu-Win.exe"
             className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl font-medium text-lg flex items-center gap-2"
+            onClick={() => track("download_windows")}
           >
              ดาวน์โหลดสำหรับ Windows
           </a>
