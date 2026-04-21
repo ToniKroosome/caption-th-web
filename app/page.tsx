@@ -27,6 +27,10 @@ export default function Home() {
           เร็ว แม่น ไม่ต้องมีอินเทอร์เน็ต
         </p>
 
+        <div className="bg-yellow-900/60 border border-yellow-600 text-yellow-300 rounded-xl px-5 py-3 mb-6 font-semibold text-sm">
+          ⚠️ ควรใช้กับคลิปความยาวต่ำกว่า 1 นาที เพื่อความไวในการจบงานของคอมฯ
+        </div>
+
         <div className="flex gap-4 flex-wrap justify-center mb-4">
           <a
             href="https://github.com/ToniKroosome/caption-th-web/releases/latest/download/TumMuSubBu-Mac.dmg"
