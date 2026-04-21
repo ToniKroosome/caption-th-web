@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET || "";
+const ADMIN_SECRET = process.env.ADMIN_DASHBOARD_SECRET || process.env.ADMIN_SECRET || "";
 const VERCEL_TOKEN = process.env.VERCEL_TOKEN || "";
 const VERCEL_PROJECT_ID = process.env.VERCEL_PROJECT_ID || "";
 const VERCEL_TEAM_ID = process.env.VERCEL_TEAM_ID || "";
